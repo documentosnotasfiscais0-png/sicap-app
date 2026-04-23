@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>GERADOR SICAP</h2>
+
+<input id="objeto" placeholder="Objeto"><br><br>
+<input id="tipo" placeholder="Tipo"><br><br>
+<input id="prazo" placeholder="Prazo"><br><br>
+
+<button onclick="gerar()">GERAR</button>
+
+<pre id="saida"></pre>
+
+<script>
+async function gerar() {
+  const res = await fetch("https://sicap-app.onrender.com/gerar", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      objeto: document.getElementById("objeto").value,
+      tipo: document.getElementById("tipo").value,
+      prazo: document.getElementById("prazo").value
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById("saida").innerText = data.texto;
+}
+</script>
+
+</body>
+</html>
